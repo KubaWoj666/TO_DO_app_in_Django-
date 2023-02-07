@@ -1,0 +1,29 @@
+
+
+{% block content %}
+<div class="wrapper">
+    <div>
+        <a href="{% url 'home' %}"><h1>TO-DO</h1></a>
+        <hr>
+    </div>
+
+    <div>
+        <a href="{% url 'add-task' %}">Add Task</a>
+    </div>
+    <hr>
+
+    {% for task in tasks %}
+    <div> 
+        
+        <a href=""><h3>{{task.name}}</h3></a>
+        <div>
+            <a href="">Done</a>
+            <a href="{% url 'update-task' task.id  %}">Update</a>
+            <a href="{% url 'delete' task.id %}">Delete</a>
+        </div>
+        <hr>
+       
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
