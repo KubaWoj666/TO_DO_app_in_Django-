@@ -4,7 +4,7 @@ I really like To-Do apps so I decided to create my own.
 I have so much fun creating it
 <br />
 
-## What I already done
+## Already done
 - Build task model (very easy, it will be developed)
 - Create CRUD application for create, read, update and delete tasks
 - Create a form for tasks
