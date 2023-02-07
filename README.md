@@ -1,7 +1,7 @@
 # To Do Django app
 I really like To-Do apps so I decided to create my own.
 <br />
-I have so much fun to create this 
+I have so much fun creating it
 <br />
 
 ## What I already done
