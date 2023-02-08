@@ -1,29 +1,58 @@
-
+{% extends 'main.html' %}
 
 {% block content %}
-<div class="wrapper">
-    <div>
-        <a href="{% url 'home' %}"><h1>TO-DO</h1></a>
-        <hr>
-    </div>
 
-    <div>
-        <a href="{% url 'add-task' %}">Add Task</a>
-    </div>
-    <hr>
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
 
-    {% for task in tasks %}
+
+<div class="home-container">
+    
+    <div>
+        <h2>Users</h2>
+        {% for user in users %}
+        <p>@{{user.username}}</p>
+        {% endfor %}
+    </div>
+    
+
     <div> 
-        
-        <a href=""><h3>{{task.name}}</h3></a>
+       
         <div>
-            <a href="">Done</a>
-            <a href="{% url 'update-task' task.id  %}">Update</a>
-            <a href="{% url 'delete' task.id %}">Delete</a>
+            <a href="{% url 'add-task' %}">Add Task</a>
         </div>
         <hr>
-       
+
+        {% for task in tasks %}
+        {% if task.completed != True %}
+        <span>@{{task.host.username}}</span>
+        <a href="{% url 'task' task.id %}"><h3>{{task.title}}</h3></a>
+        <div>
+            <a href="{% url 'completed-task' task.id  %}">Done</a>
+            <a href="{% url 'update-task' task.id  %}">Update</a>
+            <a href="{% url 'delete' task.id %}">Delete</a>
+            <hr>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        
+    </div>
+    
+   
+    <div>
+        <h2>Completed tasks</h2>
+        {% for task in tasks %}
+        {% if task.completed != False %}
+        <a href="{% url 'task' task.id %}"><h3>{{task.title}}</h3></a>
+        {% endif %}
+        {% endfor %}
+        
     </div>
 </div>
-{% endfor %}
+
 {% endblock content %}
