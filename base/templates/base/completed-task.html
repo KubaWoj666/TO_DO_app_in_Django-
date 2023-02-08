@@ -1,0 +1,11 @@
+{% block content %}
+
+<form method="POST" action="">
+
+    {% csrf_token %}
+    <p>Are you sure you have finished this "{{obj}}" task ?</p>
+    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock content %}

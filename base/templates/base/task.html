@@ -1,0 +1,24 @@
+{% block content %}
+
+<a href="{% url 'home' %}"><h1>TO-DO</h1></a>
+<hr>
+
+<div>
+    <a href="{% url 'task' task.id %}"><h1>{{task.title}}</h1></a>
+    <p>Description: {{task.description}}</p>
+    <p>Completed: {{task.completed}}</p>
+    <ul>
+        <li>
+            <a href="{% url 'completed-task' task.id  %}">Done</a>
+        </li>
+        <li>
+            <a href="{% url 'update-task' task.id  %}">Update</a>
+        </li>
+        <li>
+            <a href="{% url 'delete' task.id %}">Delete</a>
+        </li>
+        
+    </ul>
+</div>
+
+{% endblock content %}

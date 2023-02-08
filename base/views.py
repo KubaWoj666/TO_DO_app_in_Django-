@@ -1,15 +1,75 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
-from .models import Task
-from .forms import TaskForm
+from .models import Task,User
+from .forms import TaskForm, UserForm
 
+def welcomePage(request):
+    return render(request, 'base/welcome.html', {})
+
+
+def loginPage(request):
+    page = 'login'
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except:
+            messages.error(request, f"User dose not exist!")
+        
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        
+        else:
+            messages.error(request, "invalid credentials")
+
+        
+    context = {'page':page}
+    return render(request, 'base/login-register.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('welcome')
+
+
+def registerPage(request):
+    form = UserForm()
+
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid:
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        messages.error(request, "An error occurred during registration")
+        
+    context = {'form': form}
+    return render(request, 'base/login-register.html', context)
+    
 
 
 def home(request):
     tasks = Task.objects.all()
-    context = {"tasks":tasks}
+    users = User.objects.all()
+    context = {"tasks":tasks, "users":users}
     return render(request, 'base/home.html', context)
+
+
+def task(request, pk):
+    task = Task.objects.get(id=pk)
+    context = {"task": task}
+    return render(request, "base/task.html", context)
 
 
 def add_task(request):
@@ -20,6 +80,7 @@ def add_task(request):
     context = {"form": form}
     return render(request, 'base/add-task.html', context)    
 
+
 def update_task(request, pk):
     task = Task.objects.get(id=pk)
     form  = TaskForm(instance=task)
@@ -27,8 +88,6 @@ def update_task(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            # task.name = request.POST.get('name')
-            # task.description = request.POST.get('description')
             task.save()
             return redirect('home')
     context = {'task': task, 'form': form}
@@ -44,6 +103,17 @@ def delete_task(request, pk):
     
     context = {'obj': task}
     return render(request, 'base/delete.html', context)
+
+def completed_task(request, pk):
+    task = Task.objects.get(id=pk)
+    if request.method == "POST":
+        task.completed = True
+        task.save()
+        return redirect('home')
+    context = {'task':task, "obj":task}
+    return render(request, "base/completed-task.html", context)
+    
+
 
 
 
