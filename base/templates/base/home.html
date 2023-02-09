@@ -9,13 +9,12 @@
     }
 </style>
 
-
 <div class="home-container">
     
     <div>
         <h2>Users</h2>
         {% for user in users %}
-        <p>@{{user.username}}</p>
+        <p>@{{user.username}} </p>
         {% endfor %}
     </div>
     
@@ -26,9 +25,9 @@
             <a href="{% url 'add-task' %}">Add Task</a>
         </div>
         <hr>
-
+        
         {% for task in tasks %}
-        {% if task.completed != True %}
+        {% if task.completed != True and task.host.email == request.user.email %}
         <span>@{{task.host.username}}</span>
         <a href="{% url 'task' task.id %}"><h3>{{task.title}}</h3></a>
         <div>
@@ -40,6 +39,8 @@
         {% endif %}
         {% endfor %}
 
+        <p>Active task: {{user_task}}</p>
+
         
     </div>
     
@@ -47,12 +48,15 @@
     <div>
         <h2>Completed tasks</h2>
         {% for task in tasks %}
-        {% if task.completed != False %}
+        {% if task.completed != False and task.host.email == request.user.email  %}
         <a href="{% url 'task' task.id %}"><h3>{{task.title}}</h3></a>
         {% endif %}
         {% endfor %}
+        <p>Completed task: {{user_task_completed}}</p>
+
         
     </div>
 </div>
+
 
 {% endblock content %}

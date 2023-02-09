@@ -41,28 +41,30 @@ def logoutUser(request):
 
 
 def registerPage(request):
-    form = UserForm()
+    form = UserForm() 
 
     if request.method == 'POST':
         form = UserForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
             login(request, user)
             return redirect('home')
-    else:
-        messages.error(request, "An error occurred during registration")
-        
+        else:
+            messages.error(request, "An error occurred during registration")
+            
     context = {'form': form}
     return render(request, 'base/login-register.html', context)
-    
+
 
 
 def home(request):
     tasks = Task.objects.all()
     users = User.objects.all()
-    context = {"tasks":tasks, "users":users}
+    user_task = Task.objects.filter(host__id = request.user.id, completed = False ).count()
+    user_task_completed = Task.objects.filter(host__id = request.user.id, completed = True ).count()
+    context = {"tasks":tasks, "users":users, "user_task":user_task, "user_task_completed":user_task_completed  }
     return render(request, 'base/home.html', context)
 
 
@@ -75,7 +77,9 @@ def task(request, pk):
 def add_task(request):
     form = TaskForm(request.POST)
     if form.is_valid():
-        form.save()
+        task = form.save(commit=False)
+        task.host = request.user
+        task.save()
         return redirect('home')
     context = {"form": form}
     return render(request, 'base/add-task.html', context)    
