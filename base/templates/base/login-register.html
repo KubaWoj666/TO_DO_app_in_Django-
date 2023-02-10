@@ -1,6 +1,11 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<style>
+    div{
+        background-color: aquamarine;
+    }
+</style>
 
 
 {% if page == 'login' %}
@@ -23,7 +28,7 @@
 
 {% else %}
 
-<div>
+<div class="register">
     <form method="POST" action="">
         {% csrf_token %}
         {{form.as_p}}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 
 
 from .models import Task,User
@@ -60,12 +61,36 @@ def registerPage(request):
 
 
 def home(request):
+    # q = request.GET.get('q') if request.GET.get('q') != None else ""
+
+    # filter_tasks = Task.objects.filter(title__icontains = q)
+
     tasks = Task.objects.all()
     users = User.objects.all()
+
     user_task = Task.objects.filter(host__id = request.user.id, completed = False ).count()
+
     user_task_completed = Task.objects.filter(host__id = request.user.id, completed = True ).count()
-    context = {"tasks":tasks, "users":users, "user_task":user_task, "user_task_completed":user_task_completed  }
+
+    context = {"tasks":tasks, "users":users, "user_task":user_task, "user_task_completed":user_task_completed}
     return render(request, 'base/home.html', context)
+
+
+def search_task(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ""
+    users = User.objects.all()
+
+    #filter_tasks = Task.objects.filter(title__icontains = q)
+    filter_tasks = Task.objects.filter(
+        Q(title__icontains = q), 
+        host__email = request.user,
+        completed = False
+        
+    )
+    
+    context = {"filter_tasks":filter_tasks }
+
+    return render(request, 'base/search.html', context)
 
 
 def task(request, pk):

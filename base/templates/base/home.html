@@ -18,18 +18,29 @@
         {% endfor %}
     </div>
     
+       
 
     <div> 
        
         <div>
             <a href="{% url 'add-task' %}">Add Task</a>
         </div>
+        <div>
+            <form method="GET" action="{% url 'search' %}">
+                <input type="text"  name="q" placeholder="Search Task..."/>
+            </form>
+        </div>
         <hr>
+        
+
+       
         
         {% for task in tasks %}
         {% if task.completed != True and task.host.email == request.user.email %}
         <span>@{{task.host.username}}</span>
+        
         <a href="{% url 'task' task.id %}"><h3>{{task.title}}</h3></a>
+        <small>Added: {{task.created|timesince}} ago</small>
         <div>
             <a href="{% url 'completed-task' task.id  %}">Done</a>
             <a href="{% url 'update-task' task.id  %}">Update</a>
@@ -40,7 +51,7 @@
         {% endfor %}
 
         <p>Active task: {{user_task}}</p>
-
+        
         
     </div>
     

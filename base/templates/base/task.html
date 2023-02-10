@@ -7,6 +7,7 @@
     <a href="{% url 'task' task.id %}"><h1>{{task.title}}</h1></a>
     <p>Description: {{task.description}}</p>
     <p>Completed: {{task.completed}}</p>
+    <p>Host: {{task.host.email}}</p>
     <ul>
         <li>
             <a href="{% url 'completed-task' task.id  %}">Done</a>

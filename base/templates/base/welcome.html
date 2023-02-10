@@ -5,25 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO-DO</title>
+
+    <style>
+        body{
+            background-color: rgb(23, 169, 23);
+            display: flex;
+            justify-content: center;  
+        }
+
+        header{
+            display: center;
+        }
+
+        h1{
+            
+            padding: 10px 150px;
+            font-size:500%;
+        }
+
+        .welcome{
+            
+            padding: 10px 50px;
+            font-size: 200%;
+            margin-bottom: 50px;
+        }
+
+        .button{
+            justify-content: center;
+        }
+
+        a {
+        margin-left:130px ;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+        a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    </style>
+
+
 </head>
 <body>
-    <div>
+    <div class="wrapper">
         <header>
             <h1>TO-DO</h1>
         </header>
-        <div>
-            <p>Welcome on my To-Do application</p>
+        <div class="welcome">
+            <p>Welcome in my To-Do application</p>
         </div>
-        <div>
 
-            <a href="{% url 'register' %} ">SignUp</a>
-            <p>or</p>
+        <div class="button">
+
+            <a class=" sinup" href="{% url 'register' %} ">SignUp</a>
             
             <a href="{% url 'login' %} ">Login</a>
             
-            
-            <hr>
-
         </div>
 
     </div>

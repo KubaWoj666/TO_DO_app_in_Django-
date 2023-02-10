@@ -17,4 +17,6 @@ urlpatterns = [
 
 
     path('welcome/', views.welcomePage, name="welcome"),
+
+    path('search/', views.search_task, name='search')
 ]

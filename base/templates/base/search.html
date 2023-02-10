@@ -1,0 +1,32 @@
+
+{% block content %}
+
+<form method="GET" action="{% url 'search' %}">
+    <input type="text"  name="q" placeholder="Search Task..."/>
+</form>
+
+
+{% if filter_tasks %} 
+    <h1>Results</h1>
+    {% for filter_task in filter_tasks%}
+        
+        <a  href="{% url 'task' filter_task.id %}">{{filter_task.title}}</a><br>
+
+            
+    {% endfor %} 
+    <div>
+        <a href="{% url 'home'%}">Home</a>
+    </div>
+    
+{% else %}
+        <h1>No results</h1>
+        <a href="{% url 'home' %}"> Go back</a>
+        
+{% endif %}
+
+
+
+
+
+
+{% endblock content %}

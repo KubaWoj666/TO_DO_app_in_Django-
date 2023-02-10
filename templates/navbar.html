@@ -2,9 +2,7 @@
     <h1>TO-DO</h1>
 </a>
 <!-- 2.16h -->
-<form method="GET" action="{% url 'home' %}">
-    <input type="text"  name="q" placeholder="Search Rooms..."/>
-</form>
+
 
 {% if request.user.is_authenticated %}
 <p>Hello {{request.user.username}}</p>
