@@ -8,10 +8,11 @@ class TaskForm(ModelForm):
         model = Task
         fields = ["title", "description"]
 
-
 class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['name', 'username', 'email', 'password1', 'password2']
+
+
         
 

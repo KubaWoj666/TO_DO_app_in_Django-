@@ -1,13 +1,44 @@
-{% block content %}
+{% extends 'main.html' %}
 
-<a href="{% url 'home' %}"><h1>TO-DO</h1></a>
-<hr>
+{% block content %}
+<style>
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      color: #333;
+    }
+  
+    div {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    p{
+        text-align: center;
+    }
+
+    ul{
+        display: center;
+    }
+  
+    a {
+      color: #abafb2;
+      text-decoration: none;
+      
+    }
+  
+    a:hover {
+      text-decoration: underline;
+    }
+</style>
+  
+
+
 
 <div>
     <a href="{% url 'task' task.id %}"><h1>{{task.title}}</h1></a>
     <p>Description: {{task.description}}</p>
-    <p>Completed: {{task.completed}}</p>
-    <p>Host: {{task.host.email}}</p>
+    
     <ul>
         <li>
             <a href="{% url 'completed-task' task.id  %}">Done</a>

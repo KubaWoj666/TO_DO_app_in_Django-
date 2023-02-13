@@ -1,6 +1,44 @@
 
 {% block content %}
 
+<style>
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        margin-right: 10px;
+    }
+
+    input[type="submit"] {
+        padding: 10px 20px;
+        background-color: lightblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        color: blue;
+        font-size: 18px;
+    }
+</style>
+
 <form method="GET" action="{% url 'search' %}">
     <input type="text"  name="q" placeholder="Search Task..."/>
 </form>
@@ -23,10 +61,5 @@
         <a href="{% url 'home' %}"> Go back</a>
         
 {% endif %}
-
-
-
-
-
 
 {% endblock content %}

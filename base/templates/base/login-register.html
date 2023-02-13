@@ -3,27 +3,64 @@
 {% block content %}
 <style>
     div{
-        background-color: aquamarine;
+        background-color: #ccd0cd;
+        padding: 20px;
+    }
+
+    label{
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    input[type="text"], input[type="password"]{
+        padding: 5px;
+        margin-bottom: 20px;
+    }
+
+    input[type="submit"]{
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .lo-re-p{
+        margin-top: 20px;
+    }
+
+    .register{
+        background-color: #ccd0cd;
+    }
+
+    .lo-re-a{
+        text-decoration: none;
+        color: grey;
+    }
+
+    .lo-re-a:hover{
+        color: darkgreen;
     }
 </style>
 
-
 {% if page == 'login' %}
+
 <div>
     <form method="POST" action="">
         {% csrf_token %}
 
-        <label>Email:</label>
-        <input type="text" name="email" placeholder="Enter email" />
+    <label>Email:</label>
+    <input type="text" name="email" placeholder="Enter email" />
 
-        <label>Password:</label>
-        <input type="password" name="password" placeholder="Enter Password" />
+    <label>Password:</label>
+    <input type="password" name="password" placeholder="Enter Password" />
 
-        <input type="submit" value="Login" />
-    </form>
+    <input type="submit" value="Login" />
+</form>
 
-    <p>have not signed up yet?</p>
-    <a href="{% url 'register' %}">Sign up</a>
+<p class="lo-re-p">Have not signed up yet?</p>
+<a class="lo-re-a" href="{% url 'register' %}">Sign up</a>
 </div>
 
 {% else %}
@@ -34,11 +71,10 @@
         {{form.as_p}}
         <input type="submit" value="Register" />
     </form>
-    <p>Already signed up?</p>
-    <a href="{% url 'login' %}">Login</a>
+    <p class="lo-re-p">Already signed up?</p>
+    <a class="lo-re-a" href="{% url 'login' %}">Login</a>
 </div>
+
 {% endif %}
 
 {% endblock content %}
-
-

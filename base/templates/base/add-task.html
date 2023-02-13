@@ -1,7 +1,37 @@
+{% extends 'main.html' %}
+
 {% block content %}
+
+<style>
+  h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  div {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  form {
+    width: 60%;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  input[type="submit"] {
+    width: 100px;
+    height: 40px;
+    background-color: #0077c9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+</style>
 <div>
-    <a href="{% url 'home' %}"><h1>TO-DO</h1></a>
-    <hr>
     <h3>Add Task</h3>
 
     <div>

@@ -12,6 +12,20 @@ def welcomePage(request):
     return render(request, 'base/welcome.html', {})
 
 
+@login_required(login_url='login')
+def home(request):
+    tasks = Task.objects.all()
+    users = User.objects.all()
+
+    user_task = Task.objects.filter(host__id = request.user.id, completed = False ).count()
+
+    user_task_completed = Task.objects.filter(host__id = request.user.id, completed = True ).count()
+
+    context = {"tasks":tasks, "users":users, "user_task":user_task, "user_task_completed":user_task_completed}
+    return render(request, 'base/home.html', context)
+
+
+
 def loginPage(request):
     page = 'login'
     if request.method == "POST":
@@ -60,27 +74,10 @@ def registerPage(request):
 
 
 
-def home(request):
-    # q = request.GET.get('q') if request.GET.get('q') != None else ""
-
-    # filter_tasks = Task.objects.filter(title__icontains = q)
-
-    tasks = Task.objects.all()
-    users = User.objects.all()
-
-    user_task = Task.objects.filter(host__id = request.user.id, completed = False ).count()
-
-    user_task_completed = Task.objects.filter(host__id = request.user.id, completed = True ).count()
-
-    context = {"tasks":tasks, "users":users, "user_task":user_task, "user_task_completed":user_task_completed}
-    return render(request, 'base/home.html', context)
-
-
 def search_task(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ""
     users = User.objects.all()
 
-    #filter_tasks = Task.objects.filter(title__icontains = q)
     filter_tasks = Task.objects.filter(
         Q(title__icontains = q), 
         host__email = request.user,
@@ -99,6 +96,7 @@ def task(request, pk):
     return render(request, "base/task.html", context)
 
 
+@login_required(login_url='login')
 def add_task(request):
     form = TaskForm(request.POST)
     if form.is_valid():
@@ -110,6 +108,7 @@ def add_task(request):
     return render(request, 'base/add-task.html', context)    
 
 
+@login_required(login_url='login')
 def update_task(request, pk):
     task = Task.objects.get(id=pk)
     form  = TaskForm(instance=task)
@@ -123,6 +122,7 @@ def update_task(request, pk):
     return render(request, 'base/add-task.html', context)
 
 
+@login_required(login_url='login')
 def delete_task(request, pk):
     task = Task.objects.get(id=pk)
 
