@@ -5,12 +5,13 @@ I have so much fun creating it
 <br />
 
 ## About app
-- It is simple app where you can creat your user.
-- You can created, raeded, upateed and deleted tasks.
-- You can serach your tasks.
+- It is simple app where you can
+  - You can create, raed, update and delete tasks.
+  - Each user has the possibility to create his own account.
+  - User has ability to search through created tasks
 
 
-## Setup (in future)
+## Setup 
 - Create a virtual environment
   - python -m venv venv
 - Activate virtual environment (in VsCode)
@@ -23,7 +24,7 @@ I have so much fun creating it
   - python manage.py makemigrations
   - python manage.py migrate 
 
-## How it looks like
+## Sneak peek
 - welkome page:
 <img width="958" alt="Zrzut ekranu 2023-02-13 o 13 13 04" src="https://user-images.githubusercontent.com/108401267/218454714-c18e64fa-227b-40fa-91a9-1db680c3a9e3.png">
  - home page:
